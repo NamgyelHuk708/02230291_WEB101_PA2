@@ -23,7 +23,7 @@ import {
 
 import useStore from "../store/store";
 
-// Modal Component
+//Modal Component to display detailed Pokémon information
 const PokemonDetailModal = ({ pokemon, onClose }) => {
   if (!pokemon) return null;
 
@@ -54,6 +54,7 @@ const PokemonDetailModal = ({ pokemon, onClose }) => {
   );
 }
 
+// Component to display temporary success messages
 const MessagePopup = ({ message, onClose }) => {
   return (
     <div className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg">
@@ -63,6 +64,7 @@ const MessagePopup = ({ message, onClose }) => {
   );
 }
 
+// Main Home component managing state and fetching Pokémon data
 export default function Home() {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -75,12 +77,16 @@ export default function Home() {
   const [caughtTotalPages, setCaughtTotalPages] = useState(0);
   const [message, setMessage] = useState(null);
 
+  // Constants for defining items per page in pagination
   const ITEMS_PER_PAGE = 20;
   const CAUGHT_ITEMS_PER_PAGE = 10;
+
+   // State management using custom store hooks from useStore
   const caughtPokemons = useStore((state) => state.caughtPokemons);
   const addCaughtPokemon = useStore((state) => state.addCaughtPokemon);
   const removeCaughtPokemon = useStore((state) => state.removeCaughtPokemon);
 
+  // Function to fetch Pokémon data from PokeAPI based on pagination
   const fetchPokemons = async (page) => {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${ITEMS_PER_PAGE}&offset=${(page - 1) * ITEMS_PER_PAGE}`);
@@ -100,6 +106,7 @@ export default function Home() {
     }
   };
 
+   // Function to handle Pokémon search by name
   const handleSearch = async () => {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`);
@@ -115,43 +122,53 @@ export default function Home() {
     }
   };
 
+  // Function to reset search and fetch all Pokémon again
   const handleBack = () => {
     setSearchTerm("");
     setIsSearching(false);
     fetchPokemons(page);
   };
 
+  // Function to set selected Pokémon for detail modal
   const handleDetail = (pokemon) => {
     setSelectedPokemon(pokemon);
   };
 
+  // Function to close Pokémon detail modal
   const handleCloseDetail = () => {
     setSelectedPokemon(null);
   };
 
+  // Function to catch a Pokémon and display success message
   const handleCatchPokemon = (pokemon) => {
     addCaughtPokemon(pokemon);
     setMessage(`${pokemon.name} has been caught!`);
   };
 
+  // Function to release a caught Pokémon and display success message
   const handleReleasePokemon = (pokemonId) => {
     removeCaughtPokemon(pokemonId);
     const pokemon = caughtPokemons.find(p => p.id === pokemonId);
     setMessage(`${pokemon.name} has been released!`);
   };
 
+  // Effect to fetch Pokémon data when page changes
   useEffect(() => {
     fetchPokemons(page);
   }, [page]);
 
+  // Effect to calculate total pages for caught Pokémon pagination
   useEffect(() => {
     setCaughtTotalPages(Math.ceil(caughtPokemons.length / CAUGHT_ITEMS_PER_PAGE));
   }, [caughtPokemons]);
 
+  // Pagination logic for displaying paginated caught Pokémon
   const paginatedCaughtPokemons = caughtPokemons.slice(
     (caughtPage - 1) * CAUGHT_ITEMS_PER_PAGE,
     caughtPage * CAUGHT_ITEMS_PER_PAGE
   );
+
+  // Rendered JSX for the Home component
 
   return (
     <div className="flex flex-col items-center space-y-4">

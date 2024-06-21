@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pokémon Manager App
+Welcome to the Pokémon Manager App! This application allows you to browse, catch, release, and view details of Pokémon using data fetched from the PokeAPI. You can also manage caught Pokémon which are stored locally.
+
+## Features
+- Browse and search Pokémon by name.
+- Catch and release Pokémon.
+- View detailed information and stats of each Pokémon.
+- Pagination for browsing Pokémon and caught Pokémon.
+- Modal for detailed Pokémon information.
+- Success message notifications for catch and release actions.
+
+## Technologies Used
+- Next.js: React framework for building server-side rendered applications.
+- React: JavaScript library for building user interfaces.
+- Zustand: State management library for React.
+- Tailwind CSS: Utility-first CSS framework used for styling.
+- PokeAPI: RESTful API used for fetching Pokémon data.
+- localStorage: HTML5 Web Storage used for storing caught Pokémon locally.
 
 ## Getting Started
+Prerequisites
+Make sure you have Node.js and npm (or yarn) installed on your development machine.
 
-First, run the development server:
+## Installation
+1. Clone the repository:
+```
+Copy code
+git clone <repository-url>
+cd pokemon-manager-app
+```
 
-```bash
+2. Install dependencies:
+
+```
+npm install
+# or
+yarn install
+```
+
+3. Start the development server:
+
+```
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
+- Enter a Pokémon name in the search bar to search for a specific Pokémon.
+- Click on "Catch" to catch a Pokémon. Click on "Release" to release a caught Pokémon.
+- Click on "Detail" to view detailed information about a Pokémon.
+- Use pagination to navigate through the list of Pokémon and caught Pokémon.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Local Storage
+- Caught Pokémon are stored locally in the browser's localStorage. They persist across sessions.
+- Clear browser data or use developer tools to inspect and manage stored data (localStorage).
+## Deployment
+Deploy the application to your preferred hosting service following Next.js deployment guidelines.
